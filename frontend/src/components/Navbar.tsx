@@ -16,6 +16,7 @@ export function Navbar() {
     const navLinks: NavLink[] = [
         { path: '/', label: 'Home' },
         { path: '/donate', label: 'Donate', roles: ['donor'] },
+        { path: '/my-listings', label: 'My Listings', roles: ['donor'] },
         { path: '/browse', label: 'Browse', roles: ['recipient'] },
         { path: '/about', label: 'About' },
     ];
