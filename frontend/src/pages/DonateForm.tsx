@@ -125,7 +125,12 @@ export function DonateForm() {
                 pickupWindowEnd: new Date(formData.pickupWindowEnd).toISOString(),
             };
 
-            await axios.post('/api/v1/listings', payload);
+            const res = await axios.post('/api/v1/listings', payload);
+            const newId = res.data?.data?._id;
+            if (newId) {
+                const mine = JSON.parse(localStorage.getItem('myListingIds') || '[]');
+                localStorage.setItem('myListingIds', JSON.stringify([...mine, newId]));
+            }
             navigate('/my-listings');
         } catch (err: unknown) {
             if (axios.isAxiosError(err) && err.response?.data?.errors) {
