@@ -1,7 +1,28 @@
 require('dotenv').config();
 
 const dns = require('dns');
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch (_) {}
+
+// Patch dns.lookup because Node's native MongoDB driver uses OS getaddrinfo which fails on some ISP DNS
+const originalLookup = dns.lookup;
+dns.lookup = function (hostname, options, callback) {
+  if (typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+  dns.resolve4(hostname, (err, addresses) => {
+    if (!err && addresses && addresses.length > 0) {
+      if (options && options.all) {
+        return callback(null, addresses.map((a) => ({ address: a, family: 4 })));
+      }
+      return callback(null, addresses[0], 4);
+    }
+    originalLookup(hostname, options, callback);
+  });
+};
 
 const app = require('./src/app');
 const connectDB = require('./src/config/db');
