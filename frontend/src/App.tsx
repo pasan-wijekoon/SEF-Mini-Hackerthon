@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { RoleProvider } from './context/RoleContext';
 import { Navbar } from './components/Navbar';
 import { RoleSwitcher } from './components/RoleSwitcher';
@@ -16,29 +16,27 @@ import './styles/recipient.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <RoleProvider>
-        <div className="app">
-          <Navbar />
-          <main className="main-content">
-            <div className="container">
-              <RoleSwitcher />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/donate" element={<DonateForm />} />
-                <Route path="/my-listings" element={<MyListings />} />
-                <Route path="/browse" element={<BrowseListings />} />
-                <Route path="/listings/:id" element={<ListingDetail />} />
-                <Route path="/listings/:id/confirmed" element={<ClaimConfirmation />} />
-                <Route path="/about" element={<About />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-          </main>
-          <DonationAssistant />
-        </div>
-      </RoleProvider>
-    </BrowserRouter>
+    <RoleProvider>
+      <div className="app">
+        <Navbar />
+        <main className="main-content">
+          <div className="container">
+            <RoleSwitcher />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/donate" element={<DonateForm />} />
+              <Route path="/my-listings" element={<MyListings />} />
+              <Route path="/browse" element={<BrowseListings />} />
+              <Route path="/listings/:id" element={<ListingDetail />} />
+              <Route path="/listings/:id/confirmed" element={<ClaimConfirmation />} />
+              <Route path="/about" element={<About />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </main>
+        <DonationAssistant />
+      </div>
+    </RoleProvider>
   );
 }
 
