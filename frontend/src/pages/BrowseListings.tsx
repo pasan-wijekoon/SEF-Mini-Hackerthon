@@ -3,12 +3,20 @@ import type { Listing, ListingFilters } from '../types/listing';
 import { getListings } from '../api/listingsApi';
 import ListingCard from '../components/ListingCard';
 import FilterBar from '../components/FilterBar';
+import { useRole } from '../context/RoleContext';
 
 export default function BrowseListings() {
+  const { role, setRole } = useRole();
   const [filters, setFilters] = useState<ListingFilters>({});
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (role === 'guest') {
+      setRole('recipient');
+    }
+  }, [role, setRole]);
 
   useEffect(() => {
     let active = true;

@@ -220,11 +220,13 @@
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 0.95rem;
-  border: none;
+  line-height: 1.2;
+  border: 1.5px solid transparent;
   cursor: pointer;
   transition: var(--transition-bounce);
   text-decoration: none;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .btn:disabled {
@@ -237,6 +239,7 @@
 .btn-primary {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: var(--text-inverse);
+  border: 1.5px solid transparent;
   box-shadow: 0 4px 14px var(--primary-glow);
 }
 
@@ -252,7 +255,7 @@
 .btn-secondary {
   background: var(--bg-card);
   color: var(--text-h);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
 
@@ -366,9 +369,23 @@
 
 .hero-actions {
   display: flex;
+  flex-direction: row;
   gap: 1.25rem;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+
+.hero-actions .btn {
+  flex: 0 0 auto;
+  min-width: 160px;
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Stats Section */

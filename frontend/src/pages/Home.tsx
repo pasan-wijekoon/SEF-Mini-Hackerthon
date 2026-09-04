@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRole } from '../context/RoleContext';
 import { UtensilsIcon, HeartHandshakeIcon } from '../components/Icons';
 
@@ -33,20 +33,20 @@ export function Home() {
                         to people and organizations who need it — reducing waste and fighting hunger in Sri Lanka.
                     </p>
                     <div className="hero-actions">
-                        <Link
-                            to="/donate"
+                        <button
+                            type="button"
                             className="btn btn-primary"
-                            onClick={() => setRole('donor')}
+                            onClick={handleDonorSelect}
                         >
                             Donate Food
-                        </Link>
-                        <Link
-                            to="/browse"
+                        </button>
+                        <button
+                            type="button"
                             className="btn btn-secondary"
-                            onClick={() => setRole('recipient')}
+                            onClick={handleRecipientSelect}
                         >
                             Find Food
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </section>
