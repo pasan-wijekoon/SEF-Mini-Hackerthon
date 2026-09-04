@@ -4,6 +4,7 @@ import ListingDetail from './pages/ListingDetail';
 import ClaimConfirmation from './pages/ClaimConfirmation';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import DonationAssistant from './components/DonationAssistant';
 import './styles/recipient.css';
 
 // NOTE: This is a temporary nav so the Recipient pages are reachable.
@@ -39,6 +40,9 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+
+      {/* AI donation assistant — floating chat, available on every page */}
+      <DonationAssistant />
     </>
   );
 }
