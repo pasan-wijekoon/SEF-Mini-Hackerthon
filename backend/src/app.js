@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // API Routes
-app.use('/api', apiRoutes);
+app.use('/api/v1', apiRoutes);
 
 // Error Handling Middlewares
 app.use(notFound);
