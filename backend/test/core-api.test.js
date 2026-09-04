@@ -3,7 +3,7 @@ const Listing = require('../src/models/Listing');
 const validateListing = require('../src/middlewares/validateListing');
 const { seedData } = require('../src/seed/seedListings');
 
-console.log('--- RUNNING MEMBER 3 CORE API TESTS ---');
+console.log('--- RUNNING MEMBER CORE API TESTS ---');
 
 // Test 1: Seed data validity
 console.log('[Test 1] Verifying seed dataset...');
