@@ -5,7 +5,14 @@ import { RoleSwitcher } from './components/RoleSwitcher';
 import { Home } from './pages/Home';
 import { DonateForm } from './pages/DonateForm';
 import { MyListings } from './pages/MyListings';
+import BrowseListings from './pages/BrowseListings';
+import ListingDetail from './pages/ListingDetail';
+import ClaimConfirmation from './pages/ClaimConfirmation';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import DonationAssistant from './components/DonationAssistant';
 import './App.css';
+import './styles/recipient.css';
 
 function App() {
   return (
@@ -20,15 +27,15 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/donate" element={<DonateForm />} />
                 <Route path="/my-listings" element={<MyListings />} />
-                {/* Placeholder routes for Member 2's pages */}
-                <Route path="/browse" element={<div className="placeholder-page"><h2>Browse Listings</h2><p>Coming soon - Member 2</p></div>} />
-                <Route path="/listings/:id" element={<div className="placeholder-page"><h2>Listing Detail</h2><p>Coming soon - Member 2</p></div>} />
-                <Route path="/listings/:id/confirmed" element={<div className="placeholder-page"><h2>Claim Confirmation</h2><p>Coming soon - Member 2</p></div>} />
-                <Route path="/about" element={<div className="placeholder-page"><h2>About</h2><p>Coming soon - Member 2</p></div>} />
-                <Route path="*" element={<div className="placeholder-page"><h2>404 - Not Found</h2><p>Page not found</p></div>} />
+                <Route path="/browse" element={<BrowseListings />} />
+                <Route path="/listings/:id" element={<ListingDetail />} />
+                <Route path="/listings/:id/confirmed" element={<ClaimConfirmation />} />
+                <Route path="/about" element={<About />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </main>
+          <DonationAssistant />
         </div>
       </RoleProvider>
     </BrowserRouter>

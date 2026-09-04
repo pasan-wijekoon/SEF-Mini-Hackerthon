@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
   });
 });
 
-// API Routes
-app.use('/api', apiRoutes);
+// API Routes (versioned per PRD §11)
+app.use('/api/v1', apiRoutes);
 
 // Error Handling Middlewares
 app.use(notFound);
