@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useRole } from '../context/RoleContext';
+import { LeafIcon } from './Icons';
 
 type Role = 'guest' | 'donor' | 'recipient';
 
@@ -29,7 +30,8 @@ export function Navbar() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-brand">
-                    FoodShare LK
+                    <LeafIcon className="brand-icon" />
+                    <span>FoodShare LK</span>
                 </Link>
 
                 <div className="navbar-links">
@@ -45,9 +47,12 @@ export function Navbar() {
                 </div>
 
                 <div className="navbar-role">
-                    <span className="role-badge">
-                        {role === 'guest' ? 'Guest' : role.charAt(0).toUpperCase() + role.slice(1)}
-                    </span>
+                    <div className="role-specifier">
+                        <span className="role-specifier-label">Role:</span>
+                        <span className={`role-specifier-pill role-${role}`}>
+                            {role === 'guest' ? 'Guest' : role.charAt(0).toUpperCase() + role.slice(1)}
+                        </span>
+                    </div>
                 </div>
             </div>
         </nav>

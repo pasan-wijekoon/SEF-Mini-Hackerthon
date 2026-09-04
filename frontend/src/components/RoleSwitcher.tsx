@@ -1,4 +1,5 @@
 import { useRole } from '../context/RoleContext';
+import { UserIcon } from './Icons';
 
 export function RoleSwitcher() {
     const { role, setRole } = useRole();
@@ -12,7 +13,8 @@ export function RoleSwitcher() {
     return (
         <div className="role-switcher">
             <label htmlFor="role-select" className="role-switcher-label">
-                Switch Role:
+                <UserIcon className="switcher-icon" />
+                <span>Switch Role:</span>
             </label>
             <select
                 id="role-select"

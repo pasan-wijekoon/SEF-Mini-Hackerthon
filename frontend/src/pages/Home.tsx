@@ -1,8 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRole } from '../context/RoleContext';
+import { UtensilsIcon, HeartHandshakeIcon } from '../components/Icons';
 
 export function Home() {
     const { role, setRole } = useRole();
+    const navigate = useNavigate();
+
+    const handleDonorSelect = () => {
+        setRole('donor');
+        navigate('/donate');
+    };
+
+    const handleRecipientSelect = () => {
+        setRole('recipient');
+        navigate('/browse');
+    };
 
     const stats = [
         { number: '1,200+', label: 'Meals Saved' },
@@ -21,10 +33,18 @@ export function Home() {
                         to people and organizations who need it — reducing waste and fighting hunger in Sri Lanka.
                     </p>
                     <div className="hero-actions">
-                        <Link to="/donate" className="btn btn-primary">
+                        <Link
+                            to="/donate"
+                            className="btn btn-primary"
+                            onClick={() => setRole('donor')}
+                        >
                             Donate Food
                         </Link>
-                        <Link to="/browse" className="btn btn-secondary">
+                        <Link
+                            to="/browse"
+                            className="btn btn-secondary"
+                            onClick={() => setRole('recipient')}
+                        >
                             Find Food
                         </Link>
                     </div>
@@ -103,18 +123,22 @@ export function Home() {
                         <p className="role-selection-text">Choose how you'd like to use FoodShare LK:</p>
                         <div className="role-cards">
                             <button
-                                onClick={() => setRole('donor')}
+                                onClick={handleDonorSelect}
                                 className="role-card"
                             >
-                                <div className="role-icon">🍞</div>
+                                <div className="role-icon">
+                                    <UtensilsIcon />
+                                </div>
                                 <h3>I'm a Donor</h3>
                                 <p>Post surplus food from your hotel, bakery, restaurant, or household</p>
                             </button>
                             <button
-                                onClick={() => setRole('recipient')}
+                                onClick={handleRecipientSelect}
                                 className="role-card"
                             >
-                                <div className="role-icon">🤝</div>
+                                <div className="role-icon">
+                                    <HeartHandshakeIcon />
+                                </div>
                                 <h3>I'm a Recipient</h3>
                                 <p>Find and claim food for people, NGOs, or animal shelters</p>
                             </button>
