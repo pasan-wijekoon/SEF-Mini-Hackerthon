@@ -32,10 +32,22 @@ export function MyListings() {
         fetchListings();
     }, []);
 
+    // No auth in v1 — track which listings this browser created so "My Listings"
+    // can filter the full feed down to just this donor's posts.
+    const getMyListingIds = (): string[] => {
+        try {
+            return JSON.parse(localStorage.getItem('myListingIds') || '[]');
+        } catch {
+            return [];
+        }
+    };
+
     const fetchListings = async () => {
         try {
-            const response = await axios.get('/api/v1/listings?donor=me');
-            setListings(response.data.data || []);
+            const mine = new Set(getMyListingIds());
+            const response = await axios.get('/api/v1/listings');
+            const all: Listing[] = response.data.data || [];
+            setListings(all.filter((l) => mine.has(l._id)));
         } catch (err) {
             setError('Failed to load your listings');
             console.error(err);
@@ -44,17 +56,19 @@ export function MyListings() {
         }
     };
 
-    const handleStatusChange = async (id: string, newStatus: 'claimed' | 'cancelled') => {
+    const handleMarkClaimed = async (id: string) => {
+        const claimedBy = window.prompt('Who picked this up?', 'Picked up in person');
+        if (!claimedBy) return;
+
         try {
-            await axios.patch(`/api/v1/listings/${id}`, { status: newStatus });
+            const res = await axios.patch(`/api/v1/listings/${id}/claim`, { claimedBy });
+            const updated = res.data.data;
             setListings((prev) =>
-                prev.map((listing) =>
-                    listing._id === id ? { ...listing, status: newStatus } : listing
-                )
+                prev.map((listing) => (listing._id === id ? { ...listing, ...updated } : listing))
             );
         } catch (err) {
             console.error(err);
-            alert('Failed to update listing');
+            alert('Failed to mark listing as claimed');
         }
     };
 
@@ -175,26 +189,18 @@ export function MyListings() {
                                     {listing.status === 'available' && (
                                         <>
                                             <button
-                                                onClick={() => handleStatusChange(listing._id, 'claimed')}
+                                                onClick={() => handleMarkClaimed(listing._id)}
                                                 className="btn btn-sm btn-success"
                                             >
                                                 Mark Claimed
                                             </button>
                                             <button
-                                                onClick={() => handleStatusChange(listing._id, 'cancelled')}
-                                                className="btn btn-sm btn-warning"
+                                                onClick={() => handleDelete(listing._id)}
+                                                className="btn btn-sm btn-danger"
                                             >
-                                                Cancel
+                                                Cancel Listing
                                             </button>
                                         </>
-                                    )}
-                                    {listing.status === 'available' && (
-                                        <button
-                                            onClick={() => handleDelete(listing._id)}
-                                            className="btn btn-sm btn-danger"
-                                        >
-                                            Delete
-                                        </button>
                                     )}
                                     {listing.status === 'claimed' && listing.claimedBy && (
                                         <div className="claimed-info">
