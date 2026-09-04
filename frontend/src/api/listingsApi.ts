@@ -2,11 +2,10 @@ import type { Listing, ListingFilters } from '../types/listing';
 import { mockListings } from './mockListings';
 
 // Base URL of the backend API (PRD §11). Override with VITE_API_URL in .env.
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:5000/api/v1';
+const API_BASE = import.meta.env.VITE_API_URL ?? '/api/v1';
 
-// Toggle: build against mocks until the backend is wired up.
-// Set VITE_USE_MOCKS=false in .env once the real API is ready.
-const USE_MOCKS = import.meta.env.VITE_USE_MOCKS !== 'false';
+// Toggle: real API by default. Set VITE_USE_MOCKS=true in .env to build against mocks.
+const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === 'true';
 
 // ---- Mock helpers -----------------------------------------------------------
 
